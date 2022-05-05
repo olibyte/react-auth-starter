@@ -1,6 +1,6 @@
-import { getDbConnection } from '../db';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { getDbConnection } from '../db';
 
 export const signUpRoute = {
     path: '/api/signup',
@@ -9,8 +9,7 @@ export const signUpRoute = {
         const { email, password } = req.body;
 
         const db = getDbConnection('react-auth-db');
-
-        const user = await db.collection('users').findOne({email});
+        const user = await db.collection('users').findOne({ email });
 
         if (user) {
             res.sendStatus(409);
@@ -24,7 +23,7 @@ export const signUpRoute = {
             bio: '',
         };
 
-        const result = await db.collection('users').findOne({
+        const result = await db.collection('users').insertOne({
             email,
             passwordHash,
             info: startingInfo,
@@ -32,6 +31,21 @@ export const signUpRoute = {
         });
         const { insertedId } = result;
 
-        
+        jwt.sign({
+            id: insertedId,
+            email,
+            info: startingInfo,
+            isVerified: false,
+        },
+        process.env.JWT_SECRET,
+        {
+            expiresIn: '2d',
+        },
+        (err, token) => {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            res.status(200).json({ token });
+        });
     }
 }
