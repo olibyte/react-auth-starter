@@ -5,6 +5,7 @@ import { useToken } from '../auth/useToken';
 
 export const SignUpPage = () => {
     const [token, setToken] = useToken();
+
     const [errorMessage, setErrorMessage] = useState('');
 
     const [emailValue, setEmailValue] = useState('');
@@ -41,11 +42,11 @@ export const SignUpPage = () => {
                 value={confirmPasswordValue}
                 onChange={e => setConfirmPasswordValue(e.target.value)}
                 placeholder="password" />
-                <hr/>
+            <hr />
             <button
                 disabled={
                     !emailValue || !passwordValue ||
-                            passwordValue !== confirmPasswordValue
+                    passwordValue !== confirmPasswordValue
                 }
                 onClick={onSignUpClicked}>Sign Up</button>
             <button onClick={() => history.push('/login')}>Already have an account? Log In</button>
