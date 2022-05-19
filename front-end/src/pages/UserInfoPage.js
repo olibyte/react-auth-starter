@@ -7,7 +7,7 @@ import { useUser } from '../auth/useUser';
 export const UserInfoPage = () => {
     const user = useUser();
     const [token, setToken] = useToken();
-    
+
     const { id, email, info } = user;
 
     // We'll use the history to navigate the user
@@ -39,9 +39,6 @@ export const UserInfoPage = () => {
     }, [showSuccessMessage, showErrorMessage]);
 
     const saveChanges = async () => {
-        // Send a request to the server to
-        // update the user's info with any changes we've
-        // made to the text input values
         try {
             const response = await axios.put(`/api/users/${id}`, {
                 favoriteFood,
@@ -60,14 +57,11 @@ export const UserInfoPage = () => {
     }
 
     const logOut = () => {
-        // We'll want to log the user out here
-        // and send them to the "login page"
-        alert('Log out functionality not implemented yet');
+        localStorage.removeItem('token');
+        history.push('/login');
     }
     
     const resetValues = () => {
-        // Reset the text input values to
-        // their starting values (the data we loaded from the server)
         setFavoriteFood(info.favoriteFood);
         setHairColor(info.hairColor);
         setBio(info.bio);

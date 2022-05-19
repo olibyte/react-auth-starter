@@ -1,6 +1,6 @@
-import jwt from "jsonwebtoken";
-import { ObjectID } from "mongodb"
-import { getDbConnection } from "../db";
+import jwt from 'jsonwebtoken';
+import { ObjectID } from 'mongodb';
+import { getDbConnection } from '../db';
 
 export const updateUserInfoRoute = {
     path: '/api/users/:userId',
@@ -20,9 +20,9 @@ export const updateUserInfoRoute = {
         }))(req.body);
 
         if (!authorization) {
-            return res.status(401).json({ message: 'No authorization header sent'});
+            return res.status(401).json({ message: 'No authorization header sent' });
         }
-        //bearer fdafewf.fadfa.fadfadsf
+
         const token = authorization.split(' ')[1];
 
         jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
