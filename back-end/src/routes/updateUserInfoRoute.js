@@ -1,23 +1,23 @@
-import { Jwt } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { ObjectID } from "mongodb"
 import { getDbConnection } from "../db";
 
 export const updateUserInfoRoute = {
     path: '/api/users/:userId',
     method: 'put',
-    handler: async (req,res) => {
+    handler: async (req, res) => {
         const { authorization } = req.headers;
         const { userId } = req.params;
 
-        const updates = ({
+        const updates = (({
             favoriteFood,
             hairColor,
-            bio
+            bio,
         }) => ({
             favoriteFood,
             hairColor,
-            bio
-        })(req.body);
+            bio,
+        }))(req.body);
 
         if (!authorization) {
             return res.status(401).json({ message: 'No authorization header sent'});
@@ -45,7 +45,7 @@ export const updateUserInfoRoute = {
                     return res.status(200).json(err);
                 }
                 res.status(200).json({ token });
-            })
+            });
         })
     }
- }
+}
