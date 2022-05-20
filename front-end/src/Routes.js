@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { LogInPage } from './pages/LogInPage';
 import { UserInfoPage } from './pages/UserInfoPage';
 import { SignUpPage } from './pages/SignUpPage';
+import { PleaseVerifyEmailPage } from './pages/PleaseVerifyEmailPage';
 import { PrivateRoute } from './auth/PrivateRoute';
 
 export const Routes = () => {
@@ -13,6 +14,9 @@ export const Routes = () => {
                 </PrivateRoute>
                 <Route path="/login">
                     <LogInPage />
+                </Route>
+                <Route path="/please-verify">
+                    <PleaseVerifyEmailPage />
                 </Route>
                 <Route path="/signup">
                     <SignUpPage />
