@@ -11,7 +11,7 @@ import { PrivateRoute } from './auth/PrivateRoute';
 export const Routes = () => {
     return (
         <Router>
-            <Switch>
+            <Switch>    
                 <PrivateRoute path="/" exact>
                     <UserInfoPage />
                 </PrivateRoute>
