@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-
 import { getGoogleUser } from '../util/getGoogleUser';
 import { updateOrCreateUserFromOauth } from '../util/updateOrCreateUserFromOauth';
 
@@ -10,7 +9,7 @@ export const googleOauthCallbackRoute = {
         const { code } = req.query;
 
         const oauthUserInfo = await getGoogleUser({ code });
-        const updatedUser = await updateOrCreateUserFromOauth( {oauthUserInfo });
+        const updatedUser = await updateOrCreateUserFromOauth({ oauthUserInfo });
         const { _id: id, isVerified, email, info } = updatedUser;
 
         jwt.sign(
@@ -18,8 +17,8 @@ export const googleOauthCallbackRoute = {
             process.env.JWT_SECRET,
             (err, token) => {
                 if (err) return res.sendStatus(500);
-                res.redirect(`http://localhost:3000/login?token=${token}`);
+                res.redirect(`http://localhost:3000/login?token=${token}`)
             }
-        )
+        );
     }
 }

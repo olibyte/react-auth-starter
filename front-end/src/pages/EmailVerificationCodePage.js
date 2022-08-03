@@ -33,7 +33,7 @@ export const EmailVerificationCodePage = () => {
             <p>You should have received a vrification code at the email address you provided. Please enter it here:</p>
             <input 
                 placeholder="e.g. 123456"
-                value={verficationString}
+                value={verificationString}
                 onChange={e => setVerificationString(e.target.value)} />
             <button onClick={onSubmitVerificationString}>Submit</button>
         </div>
