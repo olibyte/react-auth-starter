@@ -3,17 +3,20 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { PasswordResetSuccess } from './PasswordResetSuccess';
 import { PasswordResetFail } from './PasswordResetFail';
+import { useQueryParams } from "../util/useQueryParams";
+
 
 export const PasswordResetLandingPage = () => {
     const [isSuccess,setIsSuccess] = useState(false);
     const [isFailure,setIsFailure] = useState(false);
     const [passwordValue, setPasswordValue] = useState('');
     const [confirmPasswordValue,setConfirmPasswordValue] = useState('');
-    const { passwordResetCode} = useParams();
+    const [passwordResetCode,setPasswordResetCode] = useState('');
+    const { email } = useQueryParams();
 
     const onResetClicked = async () => {
         try {
-            await axios.put(`/api/userss/${passwordResetCode}/reset-password`, { newPassword: passwordValue });
+            await axios.put(`/api/users/${passwordResetCode}/reset-password`, { email, newPassword: passwordValue });
             setIsSuccess(true);
         } catch (e) {
             setIsFailure(true);
@@ -26,6 +29,11 @@ export const PasswordResetLandingPage = () => {
     return (
         <div className="content-container">
             <h1>Reset Password</h1>
+            <input
+                value={passwordResetCode}
+                onChange={e => setPasswordResetCode(e.target.value)}
+                placeholder="Password Reset Code"
+            />
             <p>Please enter a new password</p>
             <input
                 type='password'
